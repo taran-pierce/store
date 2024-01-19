@@ -13,7 +13,7 @@ const SIGNOUT_MUTATION = gql`
 
 export function SignOut({ children }) {
   // useMutation to get the signout function
-  const [signout, { loading }] = useMutation(SIGNOUT_MUTATION, {
+  const [signout] = useMutation(SIGNOUT_MUTATION, {
     // after signout make sure to refetch the current user to update the UI
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });

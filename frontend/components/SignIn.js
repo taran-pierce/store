@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import Form from './styles/Form';
@@ -26,6 +27,12 @@ const SIGNIN_MUTATION = gql`
       }
     }
   }
+`;
+
+export const Container = styled.div`
+  background: var(--white);
+  border: 1px solid var(--black);
+  padding: 1rem;
 `;
 
 export function SignIn() {
@@ -88,7 +95,7 @@ export function SignIn() {
   }
 
   return (
-    <>
+    <Container>
       {/* if user is already logged in show welcome text */}
       {user && (
         <>
@@ -135,7 +142,7 @@ export function SignIn() {
           </Form>
         </>
       )}
-    </>
+    </Container>
   );
 }
 
