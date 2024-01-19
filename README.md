@@ -5,9 +5,12 @@ e-commerce storefront and backend with wes bos
 - React
 - NextJS
 
+## CMS
+- Keystone
+- Cloudinary
+
 ## backend
 - Apollo Client
-- Keystone
 - MongoDB
 
 ###
