@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import Form from './styles/Form';
 import useForm from '../lib/useForm';
-import { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY, useUser } from './User';
 import DisplayError from './ErrorMessage';
 
 // graphql mutation for signing in
@@ -50,6 +50,9 @@ export function SignIn() {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
 
+  // grab current user information
+  const user = useUser();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -76,46 +79,62 @@ export function SignIn() {
     // probably send them to another page too
     if (authenticateUserWithPassword && authenticateUserWithPassword.item) {
       resetForm();
+      setHasError({
+        hasError: false,
+        message: '',
+      });
       console.log('welcome on in!');
     }
   }
 
   return (
     <>
-      <h2>Sign into your account</h2>
-      {hasError && hasError.message && (
+      {/* if user is already logged in show welcome text */}
+      {user && (
         <>
-          <DisplayError error={hasError} />
+          <h2>Thanks for signing in!</h2>
+          <p>Good to see you again {user.name}</p>
         </>
       )}
-      <Form method="post" onSubmit={(e) => handleSubmit(e)}>
-        <fieldset disabled={loading} aria-disabled={loading}>
-          <label htmlFor="email">
-            Email
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Your email address"
-              autoComplete="email"
-              value={inputs.email}
-              onChange={handleChange}
-            />
-          </label>
-          <label htmlFor="password">
-            Password
-            <input
-              type="password"
-              name="password"
-              id="password"
-              autoComplete="password"
-              value={inputs.password}
-              onChange={handleChange}
-            />
-          </label>
-          <button type="submit">Sign In</button>
-        </fieldset>
-      </Form>
+      {/* if there is no user then show the login form */}
+      {!user && (
+        <>
+          <h2>Sign into your account</h2>
+          {hasError && hasError.message && (
+            <>
+              <DisplayError error={hasError} />
+            </>
+          )}
+          <Form method="post" onSubmit={(e) => handleSubmit(e)}>
+            <fieldset disabled={loading} aria-disabled={loading}>
+              <label htmlFor="email">
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Your email address"
+                  autoComplete="email"
+                  value={inputs.email}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="password">
+                Password
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  autoComplete="password"
+                  value={inputs.password}
+                  onChange={handleChange}
+                />
+              </label>
+              <button type="submit">Sign In</button>
+            </fieldset>
+          </Form>
+        </>
+      )}
     </>
   );
 }
