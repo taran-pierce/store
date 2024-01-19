@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+*.log
+frontend/.next/
+frontend/.build/
+layout.md
+variables.env
+*.env
+.keystone
+*.db
