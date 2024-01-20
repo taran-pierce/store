@@ -7,6 +7,7 @@ import {
 } from '@keystone-next/keystone/session';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
+import { CartItem } from './schemas/CartItem';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
@@ -23,9 +24,14 @@ const sessionConfig = {
 
 // withAuth is returned form createAuth
 const { withAuth } = createAuth({
+  // using the User as the main identifier
   listKey: 'User',
+  // user name will be the email
   identityField: 'email',
+  // using the "password" to verify
   secretField: 'password',
+  // this allows you to create a brand new user when none exist
+  // just something for getting the db started
   initFirstItem: {
     fields: ['name', 'email', 'password'],
     // TODO add in initial roles
@@ -59,12 +65,12 @@ export default withAuth(
         }
       },
     },
-    // set up the schema
+    // set up the schema for keystone to use
     lists: createSchema({
-      // schema items go in here
       User,
       Product,
       ProductImage,
+      CartItem,
     }),
     // ui options
     ui: {
