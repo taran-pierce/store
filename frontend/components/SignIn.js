@@ -90,7 +90,6 @@ export function SignIn() {
         hasError: false,
         message: '',
       });
-      console.log('welcome on in!');
     }
   }
 

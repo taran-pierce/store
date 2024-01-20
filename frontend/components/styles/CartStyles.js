@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+// styled-components can reference props
+// ${(props) => props.open && `transform: translateX(0);`};
+
 const CartStyles = styled.div`
   padding: 20px;
   position: relative;

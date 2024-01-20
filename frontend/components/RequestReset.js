@@ -58,11 +58,6 @@ export function RequestReset() {
     // }
   }
 
-  console.log({
-    error,
-    data,
-  });
-
   return (
     <Container>
       {error && <DisplayError error={error} />}
