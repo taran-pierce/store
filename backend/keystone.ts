@@ -9,6 +9,7 @@ import { User } from './schemas/User';
 import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
+import { sendPasswordResetEmail } from './lib/mail';
 
 // set in .env with a fallback in case there is a local setup
 const databaseUrl =
@@ -30,10 +31,9 @@ const { withAuth } = createAuth({
     // TODO add in initial roles
   },
   passwordResetLink: {
+    // send out the reset token for pass in indentity
     async sendToken(args) {
-      console.log({
-        args,
-      });
+      await sendPasswordResetEmail(args.token, args.identity);
     },
   },
 });
