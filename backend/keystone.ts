@@ -11,6 +11,7 @@ import { CartItem } from './schemas/CartItem';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
+import { extendGraphqlSchema } from './mutations/index';
 
 // set in .env with a fallback in case there is a local setup
 const databaseUrl =
@@ -71,7 +72,9 @@ export default withAuth(
       Product,
       ProductImage,
       CartItem,
+      // extendGraphqlSchema,
     }),
+    extendGraphqlSchema,
     // ui options
     ui: {
       // TODO change later for roles
