@@ -1,16 +1,12 @@
 # store
-e-commerce storefront and backend with wes bos
+e-commerce storefront and backend tutorial with wes bos
 
-## frontend
 - React
 - NextJS
-
-## CMS
+- Apollo Client
+- GraphQL
 - Keystone
 - Cloudinary
-
-## backend
-- Apollo Client
 - MongoDB
 
 ###

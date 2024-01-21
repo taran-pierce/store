@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from 'react';
 import { any } from 'prop-types';
 
+// set up state context and provider
 const LocalStateContext = createContext();
-
 const LocalStateProvider = LocalStateContext.Provider;
 
 function CartStateProvider({ children }) {
