@@ -1,4 +1,4 @@
-import { string } from 'prop-types';
+import { object } from 'prop-types';
 import { SingleProduct } from '../../components/SingleProduct';
 
 // displaying a single product requires the id
@@ -7,7 +7,7 @@ export function SingleProductPage({ query }) {
 }
 
 SingleProductPage.propTypes = {
-  query: string,
+  query: object,
 };
 
 export default SingleProductPage;
