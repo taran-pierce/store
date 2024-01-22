@@ -15,3 +15,4 @@ e-commerce storefront and backend tutorial with wes bos
   - create and update a .env with all the required keys
   - keystone, cloudinary, mongodb, cookie
 - start up frontend with `npm run dev`
+  - update frontend/ with a `.env.local` with your key for STRIPE
