@@ -23,7 +23,9 @@ export default function Nav() {
             My Cart
             <CartCount
               count={user.cart.reduce(
-                (tally, cartItem) => tally + cartItem.quantity,
+                (tally, cartItem) =>
+                  // check to make sure product has not been deleted
+                  tally + (cartItem.product ? cartItem.quantity : 0),
                 0
               )}
             />
