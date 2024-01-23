@@ -26,6 +26,23 @@ export const CURRENT_USER_QUERY = gql`
             }
           }
         }
+        orders {
+          id
+          total
+          items {
+            id
+            name
+            description
+            photo {
+              image {
+                publicUrlTransformed
+              }
+            }
+            quantity
+            price
+          }
+          charge
+        }
       }
     }
   }
