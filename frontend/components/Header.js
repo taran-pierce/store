@@ -41,7 +41,7 @@ function Header() {
     <HeaderStyles>
       <div className="bar">
         <Logo>
-          <Link href="/">Sick Fits!</Link>
+          <Link href="/">Terry Tarantula!</Link>
         </Logo>
         <Nav />
       </div>
