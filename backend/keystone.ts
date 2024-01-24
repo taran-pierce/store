@@ -8,12 +8,14 @@ import {
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
 import { CartItem } from './schemas/CartItem';
+import { Role } from './schemas/Role';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { extendGraphqlSchema } from './mutations/index';
+import { permissionList } from './schemas/fields';
 
 // set in .env with a fallback in case there is a local setup
 const databaseUrl =
@@ -76,12 +78,11 @@ export default withAuth(
       CartItem,
       OrderItem,
       Order,
-      // extendGraphqlSchema,
+      Role,
     }),
     extendGraphqlSchema,
     // ui options
     ui: {
-      // TODO change later for roles
       // only allow access if they have session data
       // which means they are logged in
       isAccessAllowed: ({ session }) => !!session?.data,
@@ -91,7 +92,7 @@ export default withAuth(
     // second arg for withItemData is an object with the one to use, in this case "User"
     // pass the fields for it to use in a string with separated by a space
     session: withItemData(statelessSessions(sessionConfig), {
-      User: 'id name email',
+      User: `id name email role { ${permissionList.join(' ')} }`,
     }),
   })
 );
