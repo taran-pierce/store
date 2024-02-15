@@ -5,16 +5,16 @@ import { permissions, rules } from '../access';
 // set up User schema
 // a list of fields
 export const User = list({
-  access: {
-    create: () => true,
-    read: rules.canManageUsers,
-    update: rules.canManageUsers,
-    delete: permissions.canManageUsers,
-  },
-  ui: {
-    hideCreate: (args) => !permissions.canManageRoles(args),
-    hideDelete: (args) => !permissions.canManageRoles(args),
-  },
+  // access: {
+  //   create: () => true,
+  //   read: rules.canManageUsers,
+  //   update: rules.canManageUsers,
+  //   delete: permissions.canManageUsers,
+  // },
+  // ui: {
+  //   hideCreate: (args) => !permissions.canManageRoles(args),
+  //   hideDelete: (args) => !permissions.canManageRoles(args),
+  // },
   fields: {
     name: text({ isRequired: true }),
     email: text({ isRequired: true, isUnique: true }),
@@ -36,10 +36,10 @@ export const User = list({
       ui: {
         itemView: { fieldMode: 'read' },
       },
-      access: {
-        create: permissions.canManageUsers,
-        update: permissions.canManageUsers,
-      },
+      // access: {
+      //   create: permissions.canManageUsers,
+      //   update: permissions.canManageUsers,
+      // },
     }),
   },
 });
