@@ -41,5 +41,9 @@ export const User = list({
       //   update: permissions.canManageUsers,
       // },
     }),
+    products: relationship({
+      ref: 'Product.user',
+      many: true,
+    }),
   },
 });

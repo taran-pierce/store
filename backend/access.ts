@@ -14,72 +14,65 @@ const generatedPermissions = Object.fromEntries(
   ])
 );
 
-// export const permissions = {
-//   ...generatedPermissions,
-//   isAwesome({ session }: ListAccessArgs): boolean {
-//     return session?.data.name.includes('taran');
-//   },
-// };
-
-// export const rules = {
-//   canManageProducts({ session }: ListAccessArgs) {
-//     if (!isSignedIn({ session })) {
-//       return false;
-//     }
-
-//     if (permissions.canManageProducts({ session })) {
-//       return true;
-//     }
-
-//     return { user: { id: session.itemId } };
-//   },
-//   canOrder({ session }: ListAccessArgs) {
-//     if (!isSignedIn({ session })) {
-//       return false;
-//     }
-
-//     if (permissions.canManageCart({ session })) {
-//       return true;
-//     }
-
-//     return { user: { id: session.itemId } };
-//   },
-//   canManageOrderItems({ session }: ListAccessArgs) {
-//     if (!isSignedIn({ session })) {
-//       return false;
-//     }
-
-//     if (permissions.canManageOrderItems({ session })) {
-//       return true;
-//     }
-
-//     return { order: { user: { id: session.itemId } } };
-//   },
-//   canReadProducts({ session }: ListAccessArgs) {
-//     if (!isSignedIn({ session })) {
-//       return false;
-//     }
-
-//     if (permissions.canReadProducts({ session })) {
-//       return true;
-//     }
-
-//     return { status: 'AVAILABLE' };
-//   },
-//   canManageUsers({ session }: ListAccessArgs) {
-//     if (!isSignedIn({ session })) {
-//       return false;
-//     }
-
-//     if (permissions.canManageUsers({ session })) {
-//       return true;
-//     }
-
-//     return { id: session.itemId };
-//   },
-// };
-
 // // permissions - check for access returns boolean
 export const permissions = {
   ...generatedPermissions,
+};
+
+// rules can return a boolean or a filter to limit returned items
+export const rules = {
+  canManageProducts({ session }: ListAccessArgs) {
+    // if (!isSignedIn({ session })) {
+    //   return false;
+    // }
+
+    if (permissions.canManageProducts({ session })) {
+      return true;
+    }
+
+    return { user: { id: session.itemId } };
+  },
+  // canOrder({ session }: ListAccessArgs) {
+  //   if (!isSignedIn({ session })) {
+  //     return false;
+  //   }
+
+  //   if (permissions.canManageCart({ session })) {
+  //     return true;
+  //   }
+
+  //   return { user: { id: session.itemId } };
+  // },
+  // canManageOrderItems({ session }: ListAccessArgs) {
+  //   if (!isSignedIn({ session })) {
+  //     return false;
+  //   }
+
+  //   if (permissions.canManageOrderItems({ session })) {
+  //     return true;
+  //   }
+
+  //   return { order: { user: { id: session.itemId } } };
+  // },
+  canReadProducts({ session }: ListAccessArgs) {
+    // if they can manage products
+    // let them sell all products, reguardless of availiabity
+    if (permissions.canManageProducts({ session })) {
+      return true;
+    }
+
+    // otherwise only show products that are available
+    return { status: 'AVAILABLE' };
+  },
+  // canManageUsers({ session }: ListAccessArgs) {
+  //   if (!isSignedIn({ session })) {
+  //     return false;
+  //   }
+
+  //   if (permissions.canManageUsers({ session })) {
+  //     return true;
+  //   }
+
+  //   return { id: session.itemId };
+  // },
 };
