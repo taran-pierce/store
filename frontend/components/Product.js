@@ -21,6 +21,8 @@ export function Product({ product }) {
         </Title>
         <PriceTag>{formatMoney(product.price)}</PriceTag>
         <p>{product.description}</p>
+        {/* TODO should only show for logged in users */}
+        {/* but should not show signup form, link to sign in maybe */}
         <div className="buttonList">
           {/* link to update page, needs the product id for the form */}
           <Link

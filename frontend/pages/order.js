@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import formatMoney from '../lib/formatMoney';
 import DisplayError from '../components/ErrorMessage';
+import { SingleOrder } from '../components/SingleOrder';
 
 // graphql to get single order
 const ORDER_NUMBER_QUERY = gql`
@@ -32,7 +33,7 @@ const ORDER_NUMBER_QUERY = gql`
   }
 `;
 
-export function SingleOrder({ query }) {
+export function SingleOrderPage({ query }) {
   // passing id in via query
   const { id } = query;
 
@@ -52,46 +53,18 @@ export function SingleOrder({ query }) {
 
   // get the order and its info
   const { Order } = data;
-  const { items } = Order;
 
   return (
     <>
       <div>
-        <h1>Thanks for your order!</h1>
-        <h4>{Order?.user?.name}, your stuff is on the way!</h4>
-        <h5>
-          We also sent you a confirmation email here: {Order?.user?.email}
-        </h5>
-        {items && (
-          <>
-            <h2>Order Items</h2>
-            <ul>
-              {items.map((item) => (
-                <li key={item.name}>
-                  <img
-                    src={item.photo.image.publicUrlTransformed}
-                    alt={item.name}
-                    width="100"
-                  />
-                  <p>
-                    {item.name}{' '}
-                    {item.quantity > 1 ? `(x ${item.quantity})` : ''} -{' '}
-                    {item.description}
-                  </p>
-                  <p>{formatMoney(item.price)}</p>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-        <h3>Order Total: {formatMoney(Order.total)}</h3>
+        <SingleOrder order={Order} />
       </div>
     </>
   );
 }
 
-SingleOrder.propTypes = {
+SingleOrderPage.propTypes = {
   query: object,
 };
 
-export default SingleOrder;
+export default SingleOrderPage;

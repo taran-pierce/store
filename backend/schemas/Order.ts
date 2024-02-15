@@ -7,10 +7,17 @@ import {
   virtual,
 } from '@keystone-next/fields';
 import formatMoney from '../lib/formatMoney';
+import { isSignedIn, rules } from '../access';
 
 // set up Product schema
 // a list of fields
 export const Order = list({
+  access: {
+    create: isSignedIn,
+    read: rules.canOrder,
+    update: () => false,
+    delete: () => false,
+  },
   fields: {
     // custom label for Keystone db
     // label: virtual({

@@ -1,4 +1,4 @@
-import { string } from 'prop-types';
+import { object } from 'prop-types';
 import { UpdateProduct } from '../components/UpdateProduct';
 
 export function UpdatePage({ query }) {
@@ -10,7 +10,7 @@ export function UpdatePage({ query }) {
 }
 
 UpdatePage.propTypes = {
-  query: string,
+  query: object,
 };
 
 export default UpdatePage;
