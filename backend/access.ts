@@ -22,9 +22,9 @@ export const permissions = {
 // rules can return a boolean or a filter to limit returned items
 export const rules = {
   canManageProducts({ session }: ListAccessArgs) {
-    // if (!isSignedIn({ session })) {
-    //   return false;
-    // }
+    if (!isSignedIn({ session })) {
+      return false;
+    }
 
     if (permissions.canManageProducts({ session })) {
       return true;
@@ -32,29 +32,35 @@ export const rules = {
 
     return { user: { id: session.itemId } };
   },
-  // canOrder({ session }: ListAccessArgs) {
-  //   if (!isSignedIn({ session })) {
-  //     return false;
-  //   }
+  canOrder({ session }: ListAccessArgs) {
+    // this one on each will make sure to return false
+    // when not signed in instead of line 46 throwing an ISE
+    if (!isSignedIn({ session })) {
+      return false;
+    }
 
-  //   if (permissions.canManageCart({ session })) {
-  //     return true;
-  //   }
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
 
-  //   return { user: { id: session.itemId } };
-  // },
-  // canManageOrderItems({ session }: ListAccessArgs) {
-  //   if (!isSignedIn({ session })) {
-  //     return false;
-  //   }
+    return { user: { id: session.itemId } };
+  },
+  canManageOrderItems({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
 
-  //   if (permissions.canManageOrderItems({ session })) {
-  //     return true;
-  //   }
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
 
-  //   return { order: { user: { id: session.itemId } } };
-  // },
+    return { order: { user: { id: session.itemId } } };
+  },
   canReadProducts({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+
     // if they can manage products
     // let them sell all products, reguardless of availiabity
     if (permissions.canManageProducts({ session })) {
