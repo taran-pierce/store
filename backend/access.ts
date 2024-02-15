@@ -57,10 +57,6 @@ export const rules = {
     return { order: { user: { id: session.itemId } } };
   },
   canReadProducts({ session }: ListAccessArgs) {
-    if (!isSignedIn({ session })) {
-      return false;
-    }
-
     // if they can manage products
     // let them sell all products, reguardless of availiabity
     if (permissions.canManageProducts({ session })) {
