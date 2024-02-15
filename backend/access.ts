@@ -70,15 +70,15 @@ export const rules = {
     // otherwise only show products that are available
     return { status: 'AVAILABLE' };
   },
-  // canManageUsers({ session }: ListAccessArgs) {
-  //   if (!isSignedIn({ session })) {
-  //     return false;
-  //   }
+  canManageUsers({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
 
-  //   if (permissions.canManageUsers({ session })) {
-  //     return true;
-  //   }
+    if (permissions.canManageUsers({ session })) {
+      return true;
+    }
 
-  //   return { id: session.itemId };
-  // },
+    return { id: session.itemId };
+  },
 };
